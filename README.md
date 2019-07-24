@@ -1,0 +1,2 @@
+# sigaloud
+Signals, "spoken" aloud
