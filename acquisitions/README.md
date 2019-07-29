@@ -5,10 +5,10 @@
 
 - Channel Labels (22):
   - ["ACC_X", "ACC_Y", "ACC_Z", "GYRO_X", "GYRO_Y", "GYRO_Z", "MAG_X", "MAG_Y", "MAG_Z", "TEMP", "IO", "A1", "A2", "C", "Q1", "Q2", "Q3", "Q4", "PITCH", "YAW", "ROLL", "HEAD"]
-- R-IoT MuscleBIT:
+- R-IoT MuscleBIT (green):
   - /0/raw id  
 
-- R-IoT RespBIT:
+- R-IoT RespBIT (white):
   - /1/raw id  
 
 
