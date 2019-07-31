@@ -9,3 +9,5 @@
 1. Launch a pyhton3 http server on the current folder  (python -m http.server)  
 2. Launch ServerBIT executable  
 3. Open index.html on the browser (http://localhost:8000/index.html)  
+
+![example](/example_2PZT.jpg)
