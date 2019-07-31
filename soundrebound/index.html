@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Soundrebound sb p5.js</title>
+    <script language="javascript" type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script> 
+    <script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/flot/0.8.3/jquery.flot.js"></script> 
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/p5.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/addons/p5.dom.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/addons/p5.sound.js"></script>
+    <script type="text/javascript" src="sketch.js"></script>
+    <script type="text/javascript">
+
+ 	// Establish a connection to the ServerBIT
+        var ws = new WebSocket("ws://localhost:9001/");
+        var data;
+        var displayData;
+        var ch; 
+        var refresh = 0;
+        var refreshRate = 8;
+        var angleShift = 10;
+        var endAngle = 360;
+        var spot0 = {
+                x: 0,
+                y: 0
+            };
+        var spotA = spot0;
+        var spotB = spot0;
+        var x0=0;
+
+        ws.onopen = function() {
+        console.log("ON")
+        };
+
+        // Process the responses sent by the ServerBIT
+        ws.onmessage = function (e) {
+            console.log("msg")
+            data = JSON.parse(e.data)
+
+            var d1 = [];
+            var d2 = [];
+
+            ch = 'A1'
+            ch1 = 'A1'
+            ch2 = 'A2'
+
+            for (var i = 0; i < data[ch].length; i += 1){
+                d1.push([i, data[ch][i]])
+                d2.push([i, data[ch2][i]])
+                }
+			// console.log(d1.length);
+            displayData = d1; 
+            $.plot($("#placeholder"), [ d1 ], {yaxis: {min:0, max: 1024}});
+            $.plot($("#placeholder2"), [ d2 ], {yaxis: {min:0, max: 1024}});
+
+        };
+ 
+
+        // Detect when the page is unloaded or close
+        window.onbeforeunload = function() {
+            ws.onclose = function () {};
+            ws.close()
+        };        
+        
+    </script>
+    <body>
+        <div><h1>Soundrebound ServerBIT p5</h1></div>
+	<div id="placeholder" style="width:600px;height:300px;"></div> 
+	<div id="placeholder2" style="width:600px;height:300px;"></div> 
+
+	
+    <style> body {padding: 0; margin: 0;} canvas {vertical-align: top;} </style>
+	
+	
+	
+  </head>
+  <body>
+  </body>
+</html>
