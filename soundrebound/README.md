@@ -10,4 +10,4 @@
 2. Launch ServerBIT executable  
 3. Open index.html on the browser (http://localhost:8000/index.html)  
 
-![example](/soundrebound/example_2PZT.jpg)
+![example](/soundrebound/example_2PZT_rs.jpg)
