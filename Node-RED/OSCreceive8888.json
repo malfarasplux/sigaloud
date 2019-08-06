@@ -1,0 +1,78 @@
+[
+    {
+        "id": "95f7f36d.82ecf",
+        "type": "tab",
+        "label": "OSCreceive8888",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "1a2391a3.f912ee",
+        "type": "udp in",
+        "z": "95f7f36d.82ecf",
+        "name": "",
+        "iface": "",
+        "port": "8888",
+        "ipv": "udp4",
+        "multicast": "false",
+        "group": "",
+        "datatype": "buffer",
+        "x": 120,
+        "y": 140,
+        "wires": [
+            [
+                "cda84025.a7963"
+            ]
+        ]
+    },
+    {
+        "id": "cda84025.a7963",
+        "type": "osc",
+        "z": "95f7f36d.82ecf",
+        "name": "",
+        "path": "",
+        "metadata": false,
+        "x": 290,
+        "y": 140,
+        "wires": [
+            [
+                "c8c86a3e.bed828",
+                "6ab04ce0.361834"
+            ]
+        ]
+    },
+    {
+        "id": "c8c86a3e.bed828",
+        "type": "debug",
+        "z": "95f7f36d.82ecf",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 470,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "6ab04ce0.361834",
+        "type": "debug",
+        "z": "95f7f36d.82ecf",
+        "name": "",
+        "active": false,
+        "console": "false",
+        "complete": "raw",
+        "x": 460,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "7e587bb8.c1c074",
+        "type": "comment",
+        "z": "95f7f36d.82ecf",
+        "name": "Receiving messages on UDP port 8888",
+        "info": "",
+        "x": 210,
+        "y": 80,
+        "wires": []
+    }
+]
