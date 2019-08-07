@@ -117,7 +117,6 @@ function setup() {
   runClassification(rapidInput);
   var fval = parseFloat(classificationOutput[0]);
   let freq = map(fval, 0, 3, 220, 880);
-  console.log(freq);
   osc.freq(freq);
   }
 
