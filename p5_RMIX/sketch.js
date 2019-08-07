@@ -4,7 +4,7 @@ https://www.doc.gold.ac.uk/eavi/rapidmixapi.com/index.php/getting-started/
 */
 
 // Websockets
-var launchWS = false;
+var launchWS = true;
 console.log('ws state: ', launchWS);
 if (launchWS){
   var ws = new WebSocket("ws://localhost:9001/");
@@ -80,9 +80,7 @@ var ball = {
   yspeed: -3
 }
 
-var c;
-
-
+var colorBall;
 let osc;
 let fft;
 
@@ -93,6 +91,8 @@ function preload(){
 
   fft = new p5.FFT();
   osc.start();
+  osc.freq(40);
+
 
   colorBall = [color(255,100,200), color(0,0,0), color(255,0,0)];
 }
@@ -108,13 +108,17 @@ function setup() {
    display();
 
    //Change synth freq according to ball speed
-   let freq = map(Math.sign(ball.xspeed)*ball.xspeed, 0, 20, 40, 880);
-   osc.freq(freq);
+   // let freq = map(Math.sign(ball.xspeed)*ball.xspeed, 0, 20, 40, 880);
+   // osc.freq(freq);
 
   // Launch RapidMIX Train / Classify
   if (runState){
   rapidInput = imuData;
   runClassification(rapidInput);
+  var fval = parseFloat(classificationOutput[0]);
+  let freq = map(fval, 0, 3, 220, 880);
+  console.log(freq);
+  osc.freq(freq);
   }
 
     if (recordState){
