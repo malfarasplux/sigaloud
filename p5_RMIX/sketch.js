@@ -116,7 +116,7 @@ function setup() {
   rapidInput = imuData;
   runClassification(rapidInput);
   var fval = parseFloat(classificationOutput[0]);
-  let freq = map(fval, 0, 3, 220, 880);
+  let freq = map(fval, 0, 9, 220, 880);
   osc.freq(freq);
   }
 
