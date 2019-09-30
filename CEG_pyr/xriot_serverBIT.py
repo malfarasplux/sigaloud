@@ -43,7 +43,6 @@ def start_mido():
     print("MIDO ports:", outports)
     mido_port = mido.open_output('loopMIDI Port 1')
     port_is_open = True
-#    mido_port.send(mido.Message('note_on', note = 80, velocity = 80, time = 0))
 
     
 def stop_mido(port_is_open):
@@ -53,12 +52,6 @@ def stop_mido(port_is_open):
         for i in range(len(D_note)):
             mido_port.send(mido.Message('note_off', note = D_note[i], velocity = 80, time = 0))
         mido_port.close()
-
-    
-# Global
-#kcounter = 0
-#port = mido.open_output('loopMIDI Port 1')
-#current_note = 72
 
 
 net_interface_type = "en0"
@@ -213,7 +206,7 @@ def process_data(data):
             elif (D_note[i]) == 67 or (D_note[i]) == 55 or (D_note[i]) == 79:
                 A_note[i] = "G"
              
-    print(D_note)
+#    print(D_note)
     print(A_note)
 
 
