@@ -1,0 +1,577 @@
+[
+    {
+        "id": "fc5d03d4.08bea",
+        "type": "tab",
+        "label": "MIDI_Riot",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "c069bb10.6bc1c8",
+        "type": "join",
+        "z": "fc5d03d4.08bea",
+        "name": "valToArray",
+        "mode": "custom",
+        "build": "merged",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": false,
+        "timeout": "",
+        "count": "2",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 950,
+        "y": 240,
+        "wires": [
+            [
+                "899043b7.dacd9",
+                "e6124881.0dfd48",
+                "18ab2a69.1d0636"
+            ]
+        ]
+    },
+    {
+        "id": "899043b7.dacd9",
+        "type": "debug",
+        "z": "fc5d03d4.08bea",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 1130,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "e1e73150.5bf32",
+        "type": "udp out",
+        "z": "fc5d03d4.08bea",
+        "name": "",
+        "addr": "127.0.0.1",
+        "iface": "",
+        "port": "57110",
+        "ipv": "udp4",
+        "outport": "",
+        "base64": false,
+        "multicast": "false",
+        "x": 1060,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "7cbd1a2a.17fc74",
+        "type": "osc",
+        "z": "fc5d03d4.08bea",
+        "name": "",
+        "path": "",
+        "metadata": false,
+        "x": 890,
+        "y": 140,
+        "wires": [
+            [
+                "e1e73150.5bf32"
+            ]
+        ]
+    },
+    {
+        "id": "5ef54587.ff4b4c",
+        "type": "synth",
+        "z": "fc5d03d4.08bea",
+        "name": "",
+        "synthtype": "kick",
+        "filterTags": {},
+        "volume": "100",
+        "octave": 0,
+        "root": "",
+        "scale": "",
+        "degree": "",
+        "outBus": 0,
+        "synthcontrols": {
+            "mod_freq": "2",
+            "beater_noise": "0.05",
+            "pan": "0"
+        },
+        "x": 770,
+        "y": 140,
+        "wires": [
+            [
+                "7cbd1a2a.17fc74"
+            ]
+        ]
+    },
+    {
+        "id": "de77bdf8.a16f",
+        "type": "change",
+        "z": "fc5d03d4.08bea",
+        "name": "set tick",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "tick",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 620,
+        "y": 140,
+        "wires": [
+            [
+                "66345c98.01cd54"
+            ]
+        ]
+    },
+    {
+        "id": "f31e1ee7.462fb",
+        "type": "switch",
+        "z": "fc5d03d4.08bea",
+        "name": "threshold",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gt",
+                "v": "8",
+                "vt": "num"
+            },
+            {
+                "t": "lt",
+                "v": "-5",
+                "vt": "num"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 2,
+        "x": 420,
+        "y": 140,
+        "wires": [
+            [
+                "43eab36d.b2fc5c",
+                "de77bdf8.a16f"
+            ],
+            [
+                "d3a1bc0d.4bfb",
+                "eb46c3c6.457e7"
+            ]
+        ]
+    },
+    {
+        "id": "26300617.8d36fa",
+        "type": "function",
+        "z": "fc5d03d4.08bea",
+        "name": "keep last",
+        "func": "msg.payload = msg.payload.slice(msg.payload.lastIndexOf(\",\")+1);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 280,
+        "y": 140,
+        "wires": [
+            [
+                "f31e1ee7.462fb"
+            ]
+        ]
+    },
+    {
+        "id": "d3a1bc0d.4bfb",
+        "type": "debug",
+        "z": "fc5d03d4.08bea",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 630,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "43eab36d.b2fc5c",
+        "type": "debug",
+        "z": "fc5d03d4.08bea",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 630,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "6e6af9fc.d51258",
+        "type": "tcp in",
+        "z": "fc5d03d4.08bea",
+        "name": "",
+        "server": "server",
+        "host": "",
+        "port": "2055",
+        "datamode": "stream",
+        "datatype": "utf8",
+        "newline": "",
+        "topic": "",
+        "base64": false,
+        "x": 140,
+        "y": 140,
+        "wires": [
+            [
+                "26300617.8d36fa"
+            ]
+        ]
+    },
+    {
+        "id": "66345c98.01cd54",
+        "type": "change",
+        "z": "fc5d03d4.08bea",
+        "name": "set isOn",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"isOn\":true}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 760,
+        "y": 200,
+        "wires": [
+            [
+                "c069bb10.6bc1c8"
+            ]
+        ]
+    },
+    {
+        "id": "eb46c3c6.457e7",
+        "type": "change",
+        "z": "fc5d03d4.08bea",
+        "name": "set isOff",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"isOn\":false}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 760,
+        "y": 240,
+        "wires": [
+            [
+                "c069bb10.6bc1c8"
+            ]
+        ]
+    },
+    {
+        "id": "27071755.c495e8",
+        "type": "udp in",
+        "z": "fc5d03d4.08bea",
+        "name": "",
+        "iface": "",
+        "port": "8888",
+        "ipv": "udp4",
+        "multicast": "false",
+        "group": "",
+        "datatype": "buffer",
+        "x": 500,
+        "y": 300,
+        "wires": [
+            [
+                "9272d2bc.d44d3"
+            ]
+        ]
+    },
+    {
+        "id": "9272d2bc.d44d3",
+        "type": "osc",
+        "z": "fc5d03d4.08bea",
+        "name": "",
+        "path": "",
+        "metadata": false,
+        "x": 630,
+        "y": 300,
+        "wires": [
+            [
+                "bec33617.ae8f88"
+            ]
+        ]
+    },
+    {
+        "id": "bec33617.ae8f88",
+        "type": "function",
+        "z": "fc5d03d4.08bea",
+        "name": "R-IoT[19]",
+        "func": "var v = parseFloat(msg.payload[19])\nmsg = {\n    \"payload\": {\n        \"value\": parseInt(0.5*(v + 91))\n    }\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 760,
+        "y": 300,
+        "wires": [
+            [
+                "c069bb10.6bc1c8"
+            ]
+        ]
+    },
+    {
+        "id": "18ab2a69.1d0636",
+        "type": "function",
+        "z": "fc5d03d4.08bea",
+        "name": "MIDI OFF",
+        "func": "msg = msg.payload\nvar v = parseInt(msg.value)\nif (msg.isOn){\n    msg = {\n    \"payload\": [128, v, 120]};\n    return msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 680,
+        "y": 500,
+        "wires": [
+            [
+                "b5c5e897.442448",
+                "7a8cd3e6.a1fdac"
+            ]
+        ]
+    },
+    {
+        "id": "e6124881.0dfd48",
+        "type": "function",
+        "z": "fc5d03d4.08bea",
+        "name": "MIDI ON",
+        "func": "msg = msg.payload\nvar v = parseInt(msg.value)\nif (msg.isOn){\n    msg = {\n    \"payload\": [144, v, 120]};\n    return msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 540,
+        "y": 540,
+        "wires": [
+            [
+                "bb768c80.64e08",
+                "7a8cd3e6.a1fdac"
+            ]
+        ]
+    },
+    {
+        "id": "b5c5e897.442448",
+        "type": "delay",
+        "z": "fc5d03d4.08bea",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "100",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 850,
+        "y": 500,
+        "wires": [
+            [
+                "bb768c80.64e08"
+            ]
+        ]
+    },
+    {
+        "id": "bb768c80.64e08",
+        "type": "midi out",
+        "z": "fc5d03d4.08bea",
+        "name": "",
+        "midiport": "1",
+        "x": 1060,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "ef365a35.d80638",
+        "type": "ui_button",
+        "z": "fc5d03d4.08bea",
+        "name": "",
+        "group": "72c279cf.68c228",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "All_Stop",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "icon": "",
+        "payload": "1",
+        "payloadType": "json",
+        "topic": "",
+        "x": 120,
+        "y": 680,
+        "wires": [
+            [
+                "270ff883.a76038"
+            ]
+        ]
+    },
+    {
+        "id": "895ea9ba.b34b78",
+        "type": "inject",
+        "z": "fc5d03d4.08bea",
+        "name": "",
+        "topic": "",
+        "payload": "STOP ALL",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "",
+        "x": 140,
+        "y": 620,
+        "wires": [
+            [
+                "270ff883.a76038"
+            ]
+        ]
+    },
+    {
+        "id": "270ff883.a76038",
+        "type": "trigger",
+        "z": "fc5d03d4.08bea",
+        "op1": "[176,123]",
+        "op2": "[176,123]",
+        "op1type": "json",
+        "op2type": "json",
+        "duration": "100",
+        "extend": false,
+        "units": "ms",
+        "reset": "",
+        "bytopic": "all",
+        "name": "",
+        "x": 360,
+        "y": 620,
+        "wires": [
+            [
+                "bb768c80.64e08"
+            ]
+        ]
+    },
+    {
+        "id": "7a8cd3e6.a1fdac",
+        "type": "debug",
+        "z": "fc5d03d4.08bea",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 990,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "13ef38b5.ead017",
+        "type": "inject",
+        "z": "fc5d03d4.08bea",
+        "name": "",
+        "topic": "",
+        "payload": "16",
+        "payloadType": "num",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 230,
+        "y": 300,
+        "wires": [
+            [
+                "f31e1ee7.462fb"
+            ]
+        ]
+    },
+    {
+        "id": "593f7717.c21338",
+        "type": "inject",
+        "z": "fc5d03d4.08bea",
+        "name": "",
+        "topic": "",
+        "payload": "0",
+        "payloadType": "num",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 230,
+        "y": 360,
+        "wires": [
+            [
+                "f31e1ee7.462fb"
+            ]
+        ]
+    },
+    {
+        "id": "2a9e16c0.5fed6a",
+        "type": "switch",
+        "z": "fc5d03d4.08bea",
+        "name": "threshold",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gt",
+                "v": "15",
+                "vt": "num"
+            },
+            {
+                "t": "lt",
+                "v": "10",
+                "vt": "num"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 2,
+        "x": 420,
+        "y": 220,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "72c279cf.68c228",
+        "type": "ui_group",
+        "z": "",
+        "name": "PiMidi",
+        "tab": "b85a8a22.ad30d8",
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "b85a8a22.ad30d8",
+        "type": "ui_tab",
+        "z": "",
+        "name": "PiMIDI",
+        "icon": "dashboard",
+        "order": 3
+    }
+]
